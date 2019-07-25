@@ -17,7 +17,7 @@ Explanation of files;
   
       b) I found the path needed to be in an online publically accessible location (I placed on S3)
 
-2) JWT.cls, JWTBearerFLow.cls - JWT Classed provided by Salesforce
+2) JWT.cls, JWTBearerFLow.cls - JWT Classes provided by Salesforce
 
 3) EinsteinIntentWrapper.cmp, EinsteinIntentWrapper1.apxc, EinsteinIntentWrapperController - My Lightning Component and Controller
 
