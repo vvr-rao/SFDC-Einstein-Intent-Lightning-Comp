@@ -1,0 +1,101 @@
+public with sharing class EinstenIntentWrapper {
+    
+	@AuraEnabled
+    public static List<IntentWrapper> getIntent(String RecId) {
+        list<IntentWrapper>  retWrp = new list<IntentWrapper>();
+        
+        
+        //retrieve Notes
+        string sSearchText = '';
+        if (RecId.substring(0,3) == '001') {
+        	account acc = [select FIELD_REDACTED__c from Account where id =:RecId];
+        	sSearchText = acc.FIELD_REDACTED__c ;
+        }
+        
+        if (RecId.substring(0,3) == '500') {
+        	Case c = [select FIELD_REDACTED__c from Case where id =:RecId];
+        	sSearchText = c.FIELD_REDACTED__c ;
+        }
+        
+        if (RecId.substring(0,3) == '00T') {
+        	Task t = [select Description from Task where id =:RecId];
+        	sSearchText = t.Description;
+        }
+        
+        //get the token
+        String sToken = getAccessToken();
+        
+        //make the call
+        string sentimentModelId  = '<MODEL_ID>'; //'CommunitySentiment';
+		
+        string sResult;
+        
+    	Http http = new Http();
+
+    	HttpRequest req = new HttpRequest();
+        req.setMethod( 'POST' );
+        req.setEndpoint('https://api.einstein.ai/v2/language/intent'); //( 'https://api.einstein.ai/v2/language/sentiment');
+        req.setHeader( 'Authorization', 'Bearer ' + sToken);
+        req.setHeader( 'Content-type', 'application/json' );
+        
+        String body = '{\"modelId\":\"'+ sentimentModelId + '\",\"document\":\"' + sSearchText  + '\"}';
+        req.setBody( body );
+        
+        HTTPResponse httpRes = http.send(req);
+        system.debug (httpRes.getbody());
+        
+        sResult = httpRes.getbody();
+        
+        // parse the result 
+        JSONParser parser = JSON.createParser(httpRes.getBody());
+        integer i = 0;
+        string tempintent = '';
+        string tempprob = '';
+        while (parser.nextToken() != null){
+            system.debug('TOKEN: ' + parser.getCurrentToken());
+            system.debug(parser.getText());
+            if (parser.getCurrentToken() == JSONToken.VALUE_STRING) {
+                tempintent = parser.getText();
+            }
+            if (parser.getCurrentToken() == JSONToken.VALUE_NUMBER_FLOAT) {
+                tempprob = parser.getText();
+                i++;
+                retWrp.add(new IntentWrapper(tempintent,tempprob));
+            }
+        }
+        
+        
+        return retWrp;
+    }
+    
+   public static String getAccessToken() {     
+       
+        ContentVersion myPem64 = [select VersionData FROM ContentVersion WHERE title = 'einstein_platform'  AND IsLatest = true];
+        String myKey  = myPem64.VersionData.tostring();
+
+        myKey         = myKey.replace( '-----BEGIN RSA PRIVATE KEY-----', '' );
+        myKey         = myKey.replace( '-----END RSA PRIVATE KEY-----', '' );
+        myKey         = myKey.replace( '\n', '' );
+
+        JWT jwt             = new JWT( 'RS256' );
+        
+        jwt.pkcs8           = myKey; 
+        jwt.iss             = 'developer.force.com';
+        jwt.sub             = '<EMAIL>';
+        jwt.aud             = 'https://api.einstein.ai/v2/oauth2/token'; 
+        jwt.exp             = String.valueOf( '30' );
+        String access_token = JWTBearerFlow.getAccessToken( 'https://api.einstein.ai/v2/oauth2/token', jwt );
+        return access_token;
+    }//getAccessToken
+   
+    public class IntentWrapper {
+        
+        @AuraEnabled public String Token {get;set;}
+        @AuraEnabled public String Prob {get;set;}
+        
+        public IntentWrapper (string a, string b){
+            Token = a;
+            Prob = b;
+        }
+    }
+}

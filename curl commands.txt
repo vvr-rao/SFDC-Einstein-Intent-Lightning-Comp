@@ -1,0 +1,22 @@
+
+UPLOAD:
+
+curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "type=text-intent" -F "path=<location_of_dataset>" https://api.einstein.ai/v2/language/datasets/upload
+
+CHECK STATUS
+
+curl -X GET -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" https://api.einstein.ai/v2/language/datasets/<dataset_id>
+
+
+TRAIN
+
+curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "name=forload.csv" -F "datasetId=<dataset_id>" https://api.einstein.ai/v2/language/train
+
+
+USE - FORM
+
+curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "modelId=<MODEL_ID>" -F "document=I'd like to buy some shoes" https://api.einstein.ai/v2/language/intent
+
+USE - JSON
+curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-type: application/json" -d @intentjson.txt  https://api.einstein.ai/v2/language/intent
+

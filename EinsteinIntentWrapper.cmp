@@ -1,0 +1,28 @@
+<aura:component controller="EinstenIntentWrapper" implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+    <aura:handler event="force:refreshView" action="{!c.isRefreshed}" />
+    <aura:attribute name="Intent" type="EinstenIntentWrapper.IntentWrapper[]" />
+
+    <div class="page">
+    <lightning:button variant="brand" label="Get Sentiment" onclick="{!c.getIntent1}"  />
+        <h1>Result:</h1>
+
+    <div class="slds">
+    <table class="slds-table slds-table--bordered slds-table--striped slds-table--cell-buffer">
+        <thead>
+            <tr class="slds-text-heading--label">
+                	<th scope="col" class="head">Intent</th>
+					<th scope="col" class="head">Probability</th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.Intent}" var="item">
+                <tr>
+                	<td>{!item.Token}</td> 
+                    <td>{!item.Prob}</td> 
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    </div>
+    </div>
+</aura:component>
