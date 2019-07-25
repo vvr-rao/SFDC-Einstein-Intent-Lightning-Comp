@@ -12,7 +12,9 @@ Reference Links:
 Explanation of files;
 1) CURL Commands.txt;
   These are well documented to the Traihead link above. 2 notes on the data set;
+  
   a) if you use CSV - it needs to be of a format - "content", intent
+  
   b) I found the path needed to be in an online publically accessible location (I placed on S3)
 
 2) JWT.cls, JWTBearerFLow.cls - JWT Classed provided by Salesforce
