@@ -1,7 +1,7 @@
-# SFDC-Einstein-Intent-Lightning-Comp
+# SFDC-Einstein-Language-Lightning-Comp
 
 In this module
-1) Trained a Model using Einstein Intent. 
+1) Trained a Model using Einstein Language. 
 2) Created a generic Lightning Component which can sit on the following Lightning record pages - Accounts, Cases, Tasks. On the click of a button, the Model will be invoked to analyse the Comments field and provide the Intent
 
 Reference Links:
