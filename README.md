@@ -19,5 +19,5 @@ Explanation of files;
 
 2) JWT.cls, JWTBearerFLow.cls - JWT Classes provided by Salesforce
 
-3) EinsteinIntentWrapper.cmp, EinsteinIntentWrapper1.apxc, EinsteinIntentWrapperController - My Lightning Component and Controller
+3) EinsteinIntentWrapper.cmp, EinsteinIntentWrapper1.apxc, EinsteinIntentWrapperController - My Lightning Component and Server and Client Side Controllers
 
