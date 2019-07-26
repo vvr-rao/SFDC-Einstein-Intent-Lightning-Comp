@@ -21,4 +21,3 @@ Explanation of files;
 
 3) EinsteinIntentWrapper.cmp, EinsteinIntentWrapper1.apxc, EinsteinIntentWrapperController - My Lightning Component and Controller
 
-
