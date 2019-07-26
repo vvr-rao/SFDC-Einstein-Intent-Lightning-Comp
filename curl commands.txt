@@ -1,22 +1,33 @@
 
-UPLOAD:
+1) UPLOAD AN INTENT DATASET:
 
 curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "type=text-intent" -F "path=<location_of_dataset>" https://api.einstein.ai/v2/language/datasets/upload
 
-CHECK STATUS
+
+2) UPLOAD AN SENTIMENT DATASET:
+
+curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "type=text-sentiment" -F "path=<location_of_dataset>" https://api.einstein.ai/v2/language/datasets/upload
+
+3) CHECK STATUS
 
 curl -X GET -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" https://api.einstein.ai/v2/language/datasets/<dataset_id>
 
 
-TRAIN
+4) TRAIN
 
 curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "name=forload.csv" -F "datasetId=<dataset_id>" https://api.einstein.ai/v2/language/train
 
 
-USE - FORM
+5) USE THE INTENT MODEL: MULTIPART/FORM-DATA
 
 curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "modelId=<MODEL_ID>" -F "document=I'd like to buy some shoes" https://api.einstein.ai/v2/language/intent
 
-USE - JSON
+6) USE THE INTENT MODEL: JSON
 curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-type: application/json" -d @intentjson.txt  https://api.einstein.ai/v2/language/intent
 
+7) USE THE SENTIMENT MODEL: MULTIPART/FORM-DATA
+
+curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "modelId=<MODEL_ID>" -F "document=I'd like to buy some shoes" https://api.einstein.ai/v2/language/sentiment
+
+8) USE THE SENTIMENT MODEL: JSON
+curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-type: application/json" -d @intentjson.txt  https://api.einstein.ai/v2/language/sentiment
