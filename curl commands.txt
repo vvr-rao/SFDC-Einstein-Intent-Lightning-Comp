@@ -4,7 +4,7 @@
 curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "type=text-intent" -F "path=<location_of_dataset>" https://api.einstein.ai/v2/language/datasets/upload
 
 
-2) UPLOAD AN SENTIMENT DATASET:
+2) UPLOAD A SENTIMENT DATASET:
 
 curl -X POST -H "Authorization: Bearer <TOKEN>" -H "Cache-Control: no-cache" -H "Content-Type: multipart/form-data" -F "type=text-sentiment" -F "path=<location_of_dataset>" https://api.einstein.ai/v2/language/datasets/upload
 
