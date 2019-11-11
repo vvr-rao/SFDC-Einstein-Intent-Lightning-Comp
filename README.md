@@ -21,3 +21,4 @@ Explanation of files;
 
 3) EinsteinIntentWrapper.cmp, EinsteinIntentWrapper1.apxc, EinsteinIntentWrapperController - My Lightning Component and Server and Client Side Controllers
 
+4) DataSetup-EinsteinIntent.ipynb - used this to clean up and format the input file into a format understood by Einstein.
